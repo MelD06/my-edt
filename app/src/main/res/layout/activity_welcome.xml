@@ -41,7 +41,11 @@
 
     <Button
         style="?android:attr/borderlessButtonStyle"
+<<<<<<< HEAD
         android:layout_width="wrap_content"
+=======
+        android:layout_width="wrap_content" 
+>>>>>>> origin/devel
         android:layout_height="wrap_content"
         android:text="Annuler"
         android:id="@+id/but_cancel"
