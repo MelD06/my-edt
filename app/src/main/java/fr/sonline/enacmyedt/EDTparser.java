@@ -1,3 +1,22 @@
+/*
+ * Copyright Melvin Diez (c) 2016.
+ * This file is part of MyEDT for Android.
+ *
+ *     MyEDT is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
+ *
+ *     Foobar is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
+ *
+ *     You should have received a copy of the GNU General Public License
+ *     along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
 package fr.sonline.enacmyedt;
 
 import android.util.Xml;
@@ -30,13 +49,19 @@ public class EDTparser {
             if (pagestr.length() > 100000) {
                 status = 1;
             } else if (pagestr.length() > 40) {
-                page = pagestr.substring(pagestr.indexOf("<tbody>"));
-
+                try {
+                    page = pagestr.substring(pagestr.indexOf("<tbody>"));
+                }
+                catch(StringIndexOutOfBoundsException e){
+                    status = 1;
+                }
+            if(status ==0) {
                 XmlPullParser parser = Xml.newPullParser();
                 parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
                 parser.setInput(new StringReader(page)); //Corrects a Bug on Android 4
                 parser.nextTag();
                 doParse(parser);
+            }
             } else {
                 status = 1;
             }
