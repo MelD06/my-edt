@@ -1,3 +1,22 @@
+/*
+ * Copyright Melvin Diez (c) 2016.
+ * This file is part of MyEDT for Android.
+ *
+ *     MyEDT is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or
+ *     (at your option) any later version.
+ *
+ *     Foobar is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU General Public License for more details.
+ *
+ *     You should have received a copy of the GNU General Public License
+ *     along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
 package fr.sonline.enacmyedt;
 
 import android.content.Context;
@@ -75,6 +94,8 @@ public class HomeActivity extends AppCompatActivity
         };
         Calendar cal = Calendar.getInstance();
         curweek = cal.get(Calendar.WEEK_OF_YEAR);
+        if(cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY)
+            curweek++; //When it's Sunday, return the calendar of the next week
         mainweek = new EDTWeek(curweek, numclass, handl,0);
     }
 
@@ -157,8 +178,8 @@ public class HomeActivity extends AppCompatActivity
 
          if (id == R.id.nav_settings) {
              toOptions();
-        } else if (id == R.id.nav_send) {
-
+        } else if (id == R.id.nav_about) {
+             toAbout();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -166,17 +187,6 @@ public class HomeActivity extends AppCompatActivity
         return true;
     }
 
-    //Need to use that somewhere
-    public void EDTinit(){
-        ConnectivityManager connector = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netinfo = connector.getActiveNetworkInfo();
-        if(netinfo != null && netinfo.isConnected()){
-
-        }
-        else{
-            //Print somewhere NO NETWORK !
-        }
-    }
     public void ShowEDT(){
         ArrayList<EDTCourse> myweek = new ArrayList<>();
         EDTparser myweekparser = new EDTparser(myweek);
@@ -220,5 +230,10 @@ public class HomeActivity extends AppCompatActivity
         Intent intent = new Intent(this, WelcomeActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    public void toAbout(){
+        Intent intent = new Intent(this, APropos.class);
+        startActivity(intent);
     }
 }
