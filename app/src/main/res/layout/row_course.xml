@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/Heure"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:elegantTextHeight="true"
+            android:paddingLeft="11dp"
+            android:paddingRight="11dp"
+            android:text="test"
+            android:textSize="8pt"
+            android:layout_below="@+id/dotlin2"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+        
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="7dp"
+            android:layerType="software"
+            android:src="@drawable/dotted"
+            android:id="@+id/dotlin"
+            android:paddingTop="3dp" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:src="@drawable/dotted"
+            android:layerType="software"
+            android:id="@+id/dotlin2"
+            android:layout_below="@+id/Date"
+            android:layout_alignRight="@+id/Classe"
+            android:layout_alignEnd="@+id/Classe" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Cours Inconnu"
+            android:id="@+id/Cours"
+            android:textSize="8pt"
+            android:fadingEdge="horizontal"
+            android:lines="1"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:scrollHorizontally="true"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:padding="4dp"
+            android:singleLine="true"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:textAlignment="textEnd"
+            android:layout_below="@+id/dotlin2"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_toRightOf="@+id/imageView"
+            android:layout_toEndOf="@+id/imageView" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Salle Inconnue"
+            android:id="@+id/Classe"
+            android:textColor="#0019d4"
+            android:textSize="6pt"
+            android:textStyle="italic"
+            android:layout_below="@+id/Cours"
+            android:layout_alignRight="@+id/Cours"
+            android:layout_alignEnd="@+id/Cours" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date"
+            android:id="@+id/Date"
+            android:textColor="#939393"
+            android:textStyle="bold|italic"
+            android:textSize="7pt"
+            style="@style/AppTheme.AppBarOverlay"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textAlignment="center"
+            android:paddingTop="6dp" />
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="90dp"
+            android:src="@drawable/separator"
+            android:layout_toEndOf="@+id/Heure"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/Heure"
+            android:id="@+id/imageView"
+            android:layout_alignWithParentIfMissing="true"
+            android:layout_below="@+id/dotlin2" />
+    </RelativeLayout>
+</LinearLayout>
