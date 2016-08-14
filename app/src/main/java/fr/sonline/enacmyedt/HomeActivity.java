@@ -156,7 +156,7 @@ public class HomeActivity extends AppCompatActivity
             curweek = cal.get(Calendar.WEEK_OF_YEAR);
             Handler handl = new Handler(){
                 @Override
-                public void handleMessage(Message msg){
+                public void handleMessage(Message msg){ //Waits for the parsing and download to have finished
                     if(msg.what == 0){
                         ShowEDT();
                     }
@@ -197,7 +197,7 @@ public class HomeActivity extends AppCompatActivity
             mListView.destroyDrawingCache();
             mListView.setVisibility(ListView.INVISIBLE);
             mListView.setVisibility(ListView.VISIBLE);
-            mListView.setAdapter(adapt);
+            mListView.setAdapter(adapt); // Previous lines are used to update the display
             if(myweekparser.status == 1){
                 TextView text = (TextView) findViewById(R.id.content);
                 errorcounter--;
@@ -218,7 +218,7 @@ public class HomeActivity extends AppCompatActivity
                 getSupportActionBar().setTitle(class_name.substring(0, class_name.length() - 6) + " Semaine " + curweek); //Changes action bar title
             }
         } catch(XmlPullParserException e){
-            int errmgr = 1; //Error Bad webist parsing : incomplete or non-working
+            int errmgr = 1; //Error Bad website parsing : incomplete or non-working
 
         } catch(IOException e){
             int errmgr = 2 ; //No connection, website not available
@@ -229,7 +229,7 @@ public class HomeActivity extends AppCompatActivity
     public void toOptions(){
         Intent intent = new Intent(this, WelcomeActivity.class);
         startActivity(intent);
-        finish();
+        finish(); //TODO : remove this line for next version
     }
 
     public void toAbout(){

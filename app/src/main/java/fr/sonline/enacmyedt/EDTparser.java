@@ -44,7 +44,6 @@ public class EDTparser {
 
 
     public void ParseIt(String pagestr) throws XmlPullParserException, IOException {
-        //TODO ; add if length > 60000 error ! homepage generated because class doesnt exists
         if(pagestr != null && !pagestr.isEmpty()) {
             if (pagestr.length() > 100000) {
                 status = 1;
@@ -53,7 +52,7 @@ public class EDTparser {
                     page = pagestr.substring(pagestr.indexOf("<tbody>"));
                 }
                 catch(StringIndexOutOfBoundsException e){
-                    status = 1;
+                    status = 1; //TODO: handle that catch : this means that the class doesn't exists
                 }
             if(status ==0) {
                 XmlPullParser parser = Xml.newPullParser();
@@ -140,24 +139,6 @@ public class EDTparser {
         String text = parser.getText();
             return text;
 
-    }
-
-    private void skip(XmlPullParser parser) throws XmlPullParserException, IOException {
-        if(parser.getEventType() != XmlPullParser.START_TAG){
-            throw new IllegalStateException();
-        }
-        int depth = 1;
-        while(depth != 0) {
-            switch (parser.next()) {
-                case XmlPullParser.START_TAG:
-                    depth++;
-                    break;
-                case XmlPullParser.END_TAG:
-                    depth--;
-                    break;
-            }
-            String bobo = parser.getName();
-        }
     }
 
     private void NextIt(int num, XmlPullParser parse) throws XmlPullParserException, IOException{ //Iterations of next for p to p parsing
