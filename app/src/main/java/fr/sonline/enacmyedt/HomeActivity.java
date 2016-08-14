@@ -56,7 +56,7 @@ public class HomeActivity extends AppCompatActivity
     int errmgr = 0;
     String class_name = new String();
     int panicbutton = 0; //IF panic button == 1 stops network, prevents DoS on myEDT and bandwidth use !
-    int errorcounter = 10; //Counts how many times we stimulate the network preventing errors
+    int errorcounter = 5; //Counts how many times we stimulate the network preventing errors and DoS
 
 
     @Override
@@ -229,7 +229,6 @@ public class HomeActivity extends AppCompatActivity
     public void toOptions(){
         Intent intent = new Intent(this, WelcomeActivity.class);
         startActivity(intent);
-        finish(); //TODO : remove this line for next version
     }
 
     public void toAbout(){
