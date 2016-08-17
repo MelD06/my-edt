@@ -215,7 +215,7 @@ public class HomeActivity extends AppCompatActivity
                 TextView text = (TextView) findViewById(R.id.content);
                 text.setText("Connexion réussie.");
                 errorcounter = 10;
-                getSupportActionBar().setTitle(class_name.substring(0, class_name.length() - 6) + " Semaine " + curweek); //Changes action bar title
+                getSupportActionBar().setTitle(class_name.substring(0, class_name.length() - 6) + " Semaine " + (curweek==0?1:curweek%53)); //Changes action bar title
             }
         } catch(XmlPullParserException e){
             int errmgr = 1; //Error Bad website parsing : incomplete or non-working
