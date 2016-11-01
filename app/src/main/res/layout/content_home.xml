@@ -1,37 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright Melvin Diez (c) 2016.
+  ~ This file is part of MyEDT for Android.
+  ~
+  ~     MyEDT is free software: you can redistribute it and/or modify
+  ~     it under the terms of the GNU General Public License as published by
+  ~     the Free Software Foundation, either version 3 of the License, or
+  ~     (at your option) any later version.
+  ~
+  ~     Foobar is distributed in the hope that it will be useful,
+  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~     GNU General Public License for more details.
+  ~
+  ~     You should have received a copy of the GNU General Public License
+  ~     along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+  ~
+  -->
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="fr.sonline.enacmyedt.HomeActivity"
     tools:showIn="@layout/app_bar_home">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/home_first_message"
-        android:id="@+id/content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
     <ListView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/listView"
-        android:dividerHeight="0dp"
         android:divider="@android:color/transparent"
-        android:layout_above="@+id/content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_marginLeft="10dp"
+        android:layout_weight="1"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp" />
+
+    <LinearLayout
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:layout_below="@+id/listView"
+        android:id="@+id/buttons"
+        android:layout_width="wrap_content"
+        android:layout_alignParentBottom="false">
+
+
+
+        <Button
+            android:text="@string/menu_prevw"
+            android:id="@+id/prev"
+            android:onClick="goPrevWeek"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:adjustViewBounds="true"
+            android:gravity="center_horizontal|center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_weight="2"
+            android:layout_height="40dp"
+            android:background="@drawable/but_selweek"  />
+
+
+        <Button
+            android:text="@string/menu_actw"
+            android:id="@+id/Act"
+            android:onClick="goActWeek"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:adjustViewBounds="true"
+            android:layout_weight="1"
+            android:gravity="center_horizontal|center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:background="@drawable/but_selweek" />
+
+
+        <Button
+            android:text="@string/menu_nextw"
+            android:id="@+id/next"
+            android:onClick="goNextWeek"
+            android:adjustViewBounds="true"
+            android:textColor="#FFFFFF"
+            android:gravity="center_horizontal|center_vertical"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_weight="2"
+            android:background="@drawable/but_selweek" />
+
+    </LinearLayout>
+
+
+</LinearLayout>
+
 </RelativeLayout>
+

@@ -1,4 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright Melvin Diez (c) 2016.
+  ~ This file is part of MyEDT for Android.
+  ~
+  ~     MyEDT is free software: you can redistribute it and/or modify
+  ~     it under the terms of the GNU General Public License as published by
+  ~     the Free Software Foundation, either version 3 of the License, or
+  ~     (at your option) any later version.
+  ~
+  ~     Foobar is distributed in the hope that it will be useful,
+  ~     but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~     GNU General Public License for more details.
+  ~
+  ~     You should have received a copy of the GNU General Public License
+  ~     along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+  ~
+  -->
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -48,14 +67,13 @@
             android:id="@+id/Cours"
             android:textSize="8pt"
             android:fadingEdge="horizontal"
-            android:lines="1"
+            android:padding="4dp"
+            android:maxLines="1"
             android:ellipsize="marquee"
+            android:marqueeRepeatLimit ="marquee_forever"
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:scrollHorizontally="true"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:padding="4dp"
-            android:singleLine="true"
             android:textStyle="bold"
             android:textColor="#000000"
             android:textAlignment="textEnd"

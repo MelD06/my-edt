@@ -35,8 +35,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 import org.xmlpull.v1.XmlPullParserException;
@@ -116,59 +118,59 @@ public class HomeActivity extends AppCompatActivity
         return true;
     }
 
+    public void goNextWeek(View view){
+        curweek++;
+        Handler handl = new Handler(){
+            @Override
+            public void handleMessage(Message msg){
+                if(msg.what == 0){
+                    ShowEDT();
+                }
+            }
+        };
+        mainweek = new EDTWeek(curweek, numclass,handl,0);
+    }
+
+    public void goPrevWeek(View view){
+        curweek--;
+        Handler handl = new Handler(){
+            @Override
+            public void handleMessage(Message msg){
+                if(msg.what == 0){
+                    ShowEDT();
+                }
+            }
+        };
+        mainweek = new EDTWeek(curweek, numclass,handl,0);
+    }
+
+    public void goActWeek(View view){
+        Calendar cal = Calendar.getInstance();
+        curweek = cal.get(Calendar.WEEK_OF_YEAR);
+        Handler handl = new Handler(){
+            @Override
+            public void handleMessage(Message msg){ //Waits for the parsing and download to have finished
+                if(msg.what == 0){
+                    ShowEDT();
+                }
+            }
+        };
+        mainweek = new EDTWeek(curweek, numclass,handl,0);
+
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        if (id == R.id.action_nextw) {
-            curweek++;
-            Handler handl = new Handler(){
-                @Override
-                public void handleMessage(Message msg){
-                    if(msg.what == 0){
-                        ShowEDT();
-                    }
-                }
-            };
-            mainweek = new EDTWeek(curweek, numclass,handl,0);
-
-           return true;
-        }
-        if(id == R.id.action_prevw){
-            curweek--;
-            Handler handl = new Handler(){
-                @Override
-                public void handleMessage(Message msg){
-                    if(msg.what == 0){
-                        ShowEDT();
-                    }
-                }
-            };
-            mainweek = new EDTWeek(curweek, numclass,handl,0);
-
+        if (id == R.id.action_selprom) {
+            toOptions();
             return true;
         }
-        if(id == R.id.action_actw){
-            Calendar cal = Calendar.getInstance();
-            curweek = cal.get(Calendar.WEEK_OF_YEAR);
-            Handler handl = new Handler(){
-                @Override
-                public void handleMessage(Message msg){ //Waits for the parsing and download to have finished
-                    if(msg.what == 0){
-                        ShowEDT();
-                    }
-                }
-            };
-            mainweek = new EDTWeek(curweek, numclass,handl,0);
-
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
+
+
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -199,21 +201,20 @@ public class HomeActivity extends AppCompatActivity
             mListView.setVisibility(ListView.VISIBLE);
             mListView.setAdapter(adapt); // Previous lines are used to update the display
             if(myweekparser.status == 1){
-                TextView text = (TextView) findViewById(R.id.content);
                 errorcounter--;
                 if(errorcounter > 0){
-                    text.setText("Erreur de connexion, essai en cours...");
+                    //Toasting time !
+                    Toast.makeText(getApplicationContext(), "Erreur de connexion, essai en cours...", Toast.LENGTH_SHORT).show();
                     mainweek.stimulate();}
                 else {
                     panicbutton = 1;
-                    text.setText("Erreur de connexion, vérifiez votre connexion ou l'état de myedt.enac.fr .");
+                    Toast.makeText(getApplicationContext(), "Erreur de connexion, vérifiez votre connexion ou l'état de myedt.enac.fr .", Toast.LENGTH_LONG).show();
                 }
                 mListView.invalidate();
                 mListView.setAdapter(adapt);
             }
             else{
-                TextView text = (TextView) findViewById(R.id.content);
-                text.setText("Connexion réussie.");
+                Toast.makeText(getApplicationContext(), "Connexion réussie.", Toast.LENGTH_SHORT).show();
                 errorcounter = 10;
                 getSupportActionBar().setTitle(class_name.substring(0, class_name.length() - 6) + " Semaine " + (curweek==0?1:curweek%53)); //Changes action bar title
             }

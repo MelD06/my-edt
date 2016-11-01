@@ -23,16 +23,14 @@
   <string name="app_name">MyEDT</string>
   <string name="navigation_drawer_open">Ouvrir le menu de navigation</string>
   <string name="navigation_drawer_close">Fermer le menu de navigation</string>
-  //HOME
-  <string name="home_first_message">Bienvenue, actualisez pour voir l\'EDT</string>
   //Options
   <string name="options_select_promo">Choissisez votre promotion :</string>
   <string name="options_enter">Entrez le code de votre promo</string>
   <string name="ok">Ok</string>
   //HOME_Menu
-  <string name="menu_nextw">Semaine Suivante</string>
-  <string name="menu_prevw">Semaine Précedente</string>
-  <string name="menu_actw">Semaine Actuelle</string>
+  <string name="menu_nextw">&gt;</string>
+  <string name="menu_prevw">&lt;</string>
+  <string name="menu_actw">Aujourd\'hui</string>
   //Drawer
   <string name="draw_home">Accueil</string>
   <string name="action_settings">Changer de Promo</string>

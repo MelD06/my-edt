@@ -192,14 +192,12 @@ public class WelcomeActivity extends AppCompatActivity {
         mListView.setAdapter(adapt);
         Log.w("MyEDT", "Ok");
         if (myclsparser.status == 1) {
-            TextView text = (TextView) findViewById(R.id.promosel);
-            text.setText("Erreur de connexion, vérifiez votre connexion ou l'état de myedt.enac.fr .");
+            Toast.makeText(getApplicationContext(), "Erreur de connexion, vérifiez votre connexion ou l'état de myedt.enac.fr .", Toast.LENGTH_LONG).show();
             classesget.stimulate();
             mListView.invalidate();
             mListView.setAdapter(adapt);
         } else {
-            TextView text = (TextView) findViewById(R.id.promosel);
-            text.setText("Connexion réussie.");
+            Toast.makeText(getApplicationContext(), "Connexion réussie.", Toast.LENGTH_LONG).show();
         }
     }
 }
