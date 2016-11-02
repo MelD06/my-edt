@@ -41,16 +41,14 @@ public class EDTWeek {
     String pagestr;
     int sel;
 
-    Handler handl;
     InputStream is = null;
     AsyncTask<String, Void, String> asyncTask;
 
-    public EDTWeek(int weeknum, int clid, Handler handler, int select){
+    public EDTWeek(int weeknum, int clid, int select){
         if(week < 0 || week > 52) {
         }
         week = weeknum;
         classid = clid;
-        handl = handler;
         sel = select;
         String urlbase = null;
         //If select = 0 then get EDTWeek else get classes
@@ -95,7 +93,7 @@ public class EDTWeek {
     }
 
     public void stimulate(){
-        new EDTWeek(week, classid, handl, sel);
+        new EDTWeek(week, classid, sel);
     }
 
     public String getRawStr(){
@@ -119,7 +117,6 @@ public class EDTWeek {
         }
         @Override
         protected void onPostExecute(String result) {
-            handl.sendEmptyMessage(0);
             pagestr = result;
         }
 

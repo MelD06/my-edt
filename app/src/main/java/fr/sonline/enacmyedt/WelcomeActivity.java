@@ -22,6 +22,7 @@ package fr.sonline.enacmyedt;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -55,11 +56,6 @@ public class WelcomeActivity extends AppCompatActivity {
     int classid = 0;
 
 
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,28 +63,8 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
         mListView = (ListView) findViewById(R.id.content_cls);
         mListView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
-        Handler handle;
-        handle = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                if (msg.what == 0) {
-                    //TODO : threader ce code
-                    try {
-                        myclsparser.ParseIt(classesget.getRawStr());
-                    } catch (IOException e) {
-                    } catch (XmlPullParserException e) {
-                    }
-                    ShowCLS();
-                }
-            }
-        };
-        classesget = new EDTWeek(0, 0, handle, 1);
-
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
-
+        classesget = new EDTWeek(0, 0, 1);
+        new CLSworker().execute(myclsparser); //Threaded parsing
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -106,9 +82,6 @@ public class WelcomeActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
 
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
         Action viewAction = Action.newAction(
                 Action.TYPE_VIEW, // TODO: choose an action type.
                 "Welcome Page", // TODO: Define a title for the content shown.
@@ -119,7 +92,6 @@ public class WelcomeActivity extends AppCompatActivity {
                 // TODO: Make sure this auto-generated app deep link URI is correct.
                 Uri.parse("android-app://fr.sonline.enacmyedt/http/host/path")
         );
-        AppIndex.AppIndexApi.start(client, viewAction);
     }
 
     @Override
@@ -138,8 +110,6 @@ public class WelcomeActivity extends AppCompatActivity {
                 // TODO: Make sure this auto-generated app deep link URI is correct.
                 Uri.parse("android-app://fr.sonline.enacmyedt/http/host/path")
         );
-        AppIndex.AppIndexApi.end(client, viewAction);
-        client.disconnect();
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -156,8 +126,8 @@ public class WelcomeActivity extends AppCompatActivity {
                 SharedPreferences.Editor edit = prefs.edit();
                 edit.putInt("clid", classid);
                 edit.putString("clname", class_name);
-                edit.commit(); //TODO : use apply() for next version
-            finishAct(view);
+                edit.apply();
+                finishAct(view);
         }
     }
 
@@ -183,7 +153,7 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
 
-    public void ShowCLS() {
+    public void ShowCLS(CLSParser cls) {
 
         CLSAdaptater adapt = new CLSAdaptater(WelcomeActivity.this, mycourses);
         mListView.destroyDrawingCache();
@@ -191,13 +161,31 @@ public class WelcomeActivity extends AppCompatActivity {
         mListView.setVisibility(ListView.VISIBLE);
         mListView.setAdapter(adapt);
         Log.w("MyEDT", "Ok");
-        if (myclsparser.status == 1) {
+        if (cls.status == 1) {
             Toast.makeText(getApplicationContext(), "Erreur de connexion, vérifiez votre connexion ou l'état de myedt.enac.fr .", Toast.LENGTH_LONG).show();
             classesget.stimulate();
             mListView.invalidate();
             mListView.setAdapter(adapt);
         } else {
             Toast.makeText(getApplicationContext(), "Connexion réussie.", Toast.LENGTH_LONG).show();
+        }
+    }
+
+
+    private class CLSworker extends AsyncTask<CLSParser, Void, CLSParser> {
+        @Override
+       protected void onPostExecute(CLSParser parser) {
+            ShowCLS(parser);
+        }
+
+        @Override
+        protected CLSParser doInBackground(CLSParser... params) {
+            try {
+                 myclsparser.ParseIt(classesget.getRawStr());
+            } catch (IOException e) {
+            } catch (XmlPullParserException e) {
+            }
+            return myclsparser;
         }
     }
 }

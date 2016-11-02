@@ -68,12 +68,12 @@ public class EDTAdaptater extends ArrayAdapter<EDTCourse> {
 
 
         viewh.Classe.setText(course.getRoom());
-        viewh.Cours.setSelected(true);
         viewh.Cours.setText(course.getName());
+        //TODO : Work on this
+        viewh.Cours.setSelected(true); //Marquee on textview to enable auto scroll
         viewh.Heure.setText(course.getFormatTime());
         viewh.Date.setText(course.getDay());
 
-        final CoursViewHolder vh = viewh;
                 if (course.getDay() != null && course.getDay().trim().length()>0) {
                     viewh.Date.setVisibility(View.VISIBLE);
                     viewh.Dotted.setVisibility(View.VISIBLE);
